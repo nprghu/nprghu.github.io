@@ -1,54 +1,65 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Nikhil's Space</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
-    <link rel="stylesheet" href="style.css">
-</head>
+<body style="padding: 10px;" class="row">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.fluid.classless.min.css">
+  
+  <br>
+  <h1 style="text-align: center;" class="gradient-text">Dice Roller </h1>
+  <br>
+  <hr>
 
-<body>
-    <h1 style="text-align: center; padding: 50px; font-size: 50px;">
-        <mark class="mark">Nikhil's Space</mark>
-    </h1>
+  <div class="column" style="width: 60%">
+    <div class="row">
+      <div class="column" style="width: 34%">
+        <h3 style="text-align: center">Importance</h3>
+        <input type="range" min="1" max="3" value="1" id="myRange">
+        <p style="text-align: center;">Importance: <b><span id="demo"></span></b></p>
+      </div>
 
-    <article style="margin: 20px;">
-        <div class="badges">
-            <mark class="badge">1</mark>
-            <p></p>
+      <div class="column" style="width: 33%">
+        <h3 style="text-align:center;">
+          Dice Type
+        </h3>
+        <div class="row">
+          <input style="width: 20%; height: 60px;" class="column" value="d" type="text" readonly>
+          <input type="number" min="1" max="20" id="numericInput" style="width: 70%; height: 60px;" class="column" value="20">
         </div>
-        <h2>Locker Counter</h2>
-        <p>A counter for how many lockers I opened...</p>
-        <p class="links">
-            <a href="1.html" target="_blank" rel="noopener noreferrer" class="preview secondary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-eye">
-                    <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
-                    <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"></path>
-                </svg>
-                
-                Visit
-            </a>
-        </p>
-    </article>
+      </div>
 
-    <article style="margin: 20px;">
-        <div class="badges">
-            <mark class="badge">2</mark>
-            <p></p>
+      <div class="column" style="width: 33%">
+        <h3 style="text-align: center;">Modifier</h3>
+        <div class="row">
+          <select type="dropdown" class="column" style="width: 45%; height: 60px;" id="neg?">
+            <option value="+">+</option>
+            <option value="-">-</option>
+          </select>
+          <input id="mod" type="number" style="width: 50%; height: 60px;" class="column" value="0">
         </div>
-        <h2>Dice Roller</h2>
-        <p>A dice roller with an adv– I mean it's a perfectly normal dice roller.</p>
-        <p class="links">
-            <a href="2.html" target="_blank" rel="noopener noreferrer" class="preview secondary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round" class="icon-eye">
-                    <path d="M10 12a2 2 0 1 0 4 0a2 2 0 0 0 -4 0"></path>
-                    <path d="M21 12c-2.4 4 -5.4 6 -9 6c-3.6 0 -6.6 -2 -9 -6c2.4 -4 5.4 -6 9 -6c3.6 0 6.6 2 9 6"></path>
-                </svg>
-                
-                Visit
-            </a>
-        </p>
-    </article>
+      </div>
+    </div>
+    
+    <div style="padding: 10px;"><hr></div>
+    
+    <div class="row">
+      <div class="column" style="width: 34%; text-align: center;">
+        <h3>Clear List</h3>
+        <button onclick="document.getElementById('myList').innerHTML = ''">Clear List</button>
+      </div>
+
+      <div class="column" style="width: 33%; text-align: center;">
+        <h3 class="gradient-text">Home</h3>
+        <button href="https://nprghu.github.io/index.html">Home</button>
+      </div>
+    </div>
+    
+  </div>
+  
+  <div class="column vertical-line" style="width: 1%">
+  </div>
+  
+  <div class="column" style="width: 39%">
+    <input type="button" value="Roll!" onclick="rollcover()"></input>
+    <p style="text-align: center;"><kbd id="roll">Your Roll Appears Here</kbd></p>
+    <hr>
+    <ul id="myList">
+    </ul>
+  </div>
 </body>
-
-
-</html>
