@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Dice Roller</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.fluid.classless.min.css">
+
+        <style>
+            .gradient-text {
+                background: linear-gradient(to right, rgb(215, 141, 210), rgb(185, 153, 238), rgb(157, 165, 233), rgb(143, 169, 240));
+                background-clip: text;
+                -webkit-text-fill-color: transparent;
+                font-size: 50px;
+                text-align: center;
+                padding: 50px;
+                font-weight: bold;
+            }
+
+            .grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+                gap: 1rem;
+                margin: 20px;
+            }
+        </style>
+
+        <script>
+            document.addEventListener("DOMContentLoaded", function () {
+                const importanceRange = document.getElementById("importanceRange");
+                const importanceSpan = document.getElementById("importanceSpan");
+
+                function updateImportanceSpan() {
+                    importanceSpan.textContent = importanceRange.value;
+                }
+
+                importanceRange.addEventListener("input", updateImportanceSpan);
+
+                // Initialize the span with the default value
+                updateImportanceSpan();
+            });
+
+            document.addEventListener("DOMContentLoaded", function () {
+                const rollButton = document.getElementById("rollButton");
+                const clearButton = document.getElementById("clearButton");
+                const rollResult = document.getElementById("rollResult");
+                const rollHistory = document.getElementById("rollHistory");
+
+                rollButton.addEventListener("click", function () {
+                    const diceType = parseInt(document.getElementById("diceType").value, 10);
+                    const modifierSign = document.getElementById("modifierSign").value;
+                    const modifierNumber = parseInt(document.getElementById("modifierNumber").value, 10);
+                    const importance = parseInt(document.getElementById("importanceRange").value, 10);
+
+                    if (isNaN(diceType) || diceType <= 0) {
+                        rollResult.textContent = "Invalid dice type!";
+                        return;
+                    }
+
+                    let roll = Math.floor(Math.random() * diceType) + 1;
+                    
+                    roll = Math.round(roll);
+                    const modifier = modifierSign === "+" ? modifierNumber : -modifierNumber;
+                    let total = roll + modifier;
+
+                    rollResult.textContent = `${total}`;
+
+                    const listItem = document.createElement("li");
+                    listItem.textContent = `${roll}${modifierSign}${modifierNumber}-D-${diceType} [${importance}]`;
+                    
+                    const firstItem = rollHistory.firstElementChild;
+                    rollHistory.insertBefore(listItem, firstItem);
+                });
+
+                clearButton.addEventListener("click", function () {
+                    rollHistory.innerHTML = "";
+                });
+            });
+        </script>
+    </head>
+
+    <body>
+        <!-- Top -->
+        <p style="text-align: right; padding-right: 10%; padding-top: 20px;">
+            <a href="index.html">Home</a>
+        </p>
+
+        <!-- Title -->
+
+        <header class="gradient-text">
+            Dice Roller
+        </header>
+
+        <hr>
+
+        <!-- Grid -->
+        <div class="grid">
+            <div class="grid">
+
+                <!-- Importance -->
+                <div style="text-align: center;">
+                    <h3>Importance: <span id="importanceSpan"></span></h3>
+                    <br>
+                    <input type="range" min="1" max="3" value="2" class="slider" id="importanceRange">
+                </div>
+
+                <!-- Dice Type -->
+                <div style="text-align: center;">
+                    <h3>Dice Type</h3>
+                    <span style="padding: 10px;"><b>d</b></span>
+                    <input type="number" min="1" max="20" id="diceType" style="width: 80px; height: 60px;" value="20">
+                </div>
+
+                <!-- Modifier -->
+                <div style="text-align: center;">
+                    <h3>Modifier</h3>
+                    <select id="modifierSign" style="width: 45%; height: 60px;">
+                        <option value="+">+</option>
+                        <option value="-">-</option>
+                    </select>
+                    <input type="number" min="1" max="20" id="modifierNumber" style="width: 50%; height: 60px;" value="0">
+                </div>
+            </div>
+            <div style="text-align: center;">
+                <!-- Roll -->
+                <div>
+                    <br> <button style="width: 100%;" id="rollButton">Roll!</button>
+                    <br> <br>
+                    <kbd id="rollResult">Your Roll Result Goes Here!</kbd> <hr>
+                </div>
+                
+                <!-- History List -->
+                <div>
+                    <h3>Roll History</h3>
+                    <button style="width: 100%;" id="clearButton">Clear List</button>
+
+                    <ul id="rollHistory" style="list-style-type: none; padding: 30px; text-align: left;">
+                        <!-- Roll history will be populated here -->
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+      <footer>
+        <form action="/2.html" method="POST">
+  <input type="password" name="password" placeholder="Enter password">
+  <input type="submit" value="Submit">
+</form>
+      </footer>
+
+    </body>
+
+        
+</html>
