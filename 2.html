@@ -6,18 +6,79 @@
       Dice Roller
     </title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/digitallytailored/classless@latest/classless.min.css">
-  </head>
-
-  <body>
-
-        <style>
+    <style>
       .grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   gap: 1rem; /* Optional spacing */
 }
     </style>
-    <script>
+  </head>
+
+  <body>
+
+<header>
+  <h1>
+    Dice Roller
+  </h1>
+</header>
+
+<div class="grid">
+  <section>
+    <h2>Options</h2>
+    <br>
+
+    <h3>Importance</h3>
+    <select id="importance">
+      <option value=1>Low</option>
+      <option value=2>Medium</option>
+      <option value=3>High</option>
+    </select>
+    <br>
+
+    <h3>Modifier</h3>
+    <input id="modifier" type="number" value="0">
+    <br>
+
+    <h3>Dice</h3>
+    <input id="dice" type="number" value="20">
+    <br>
+    <details>
+      <summary><b>Navigation List</b></summary>
+    <input id="password" type="password">
+      <ul>
+        <b>
+        <li><a href="nprghu.github.io/index.html">Home</a></li>
+        <li><a href="github.com/nprghu/nprghu.github.io">Github</a></li>
+        </b>
+      </ul>
+    </details>
+  </section>
+  <div>
+    <section>
+      <h2>Roll!</h2>
+      <br>
+
+      <div class="grid">
+        <button id="roll" style="padding: 20px;">Roll!</button>
+
+        <input id="showcase" type="text" style="padding: 20px; margin: 0px;" disabled value="Your roll appears here!">
+      </div>
+    </section>
+    
+    <section>
+      <h2>History</h2>
+      <br>
+      <button id="clear">Clear List</button>
+      <br>
+      <br>
+      <ul id="list">
+      </ul>
+    </section>
+  </div>
+</div>
+
+        <script>
       const importanceSelect = document.getElementById('importance');
 const diceInput = document.getElementById('dice');
 const modifierInput = document.getElementById('modifier');
@@ -113,66 +174,6 @@ function realroll(dice, importance, modifier) {
   return roll;
 }
     </script>
-
-<header>
-  <h1>
-    Dice Roller
-  </h1>
-</header>
-
-<div class="grid">
-  <section>
-    <h2>Options</h2>
-    <br>
-
-    <h3>Importance</h3>
-    <select id="importance">
-      <option value=1>Low</option>
-      <option value=2>Medium</option>
-      <option value=3>High</option>
-    </select>
-    <br>
-
-    <h3>Modifier</h3>
-    <input id="modifier" type="number" value="0">
-    <br>
-
-    <h3>Dice</h3>
-    <input id="dice" type="number" value="20">
-    <br>
-    <details>
-      <summary><b>Navigation List</b></summary>
-    <input id="password" type="password">
-      <ul>
-        <b>
-        <li><a href="nprghu.github.io/index.html">Home</a></li>
-        <li><a href="github.com/nprghu/nprghu.github.io">Github</a></li>
-        </b>
-      </ul>
-    </details>
-  </section>
-  <div>
-    <section>
-      <h2>Roll!</h2>
-      <br>
-
-      <div class="grid">
-        <button id="roll" style="padding: 20px;">Roll!</button>
-
-        <input id="showcase" type="text" style="padding: 20px; margin: 0px;" disabled value="Your roll appears here!">
-      </div>
-    </section>
     
-    <section>
-      <h2>History</h2>
-      <br>
-      <button id="clear">Clear List</button>
-      <br>
-      <br>
-      <ul id="list">
-      </ul>
-    </section>
-  </div>
-</div>
   </body>
 </html>
