@@ -17,6 +17,8 @@
 
   <body>
 
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/digitallytailored/classless@latest/classless.min.css" id="link">
+
 <header>
   <h1>
     Dice Roller
@@ -45,13 +47,25 @@
     <br>
     <details>
       <summary><b>Navigation List</b></summary>
-    <input id="password" type="password">
+      <input id="password" type="password">
       <ul>
         <b>
-        <li><a href="nprghu.github.io/index.html">Home</a></li>
-        <li><a href="github.com/nprghu/nprghu.github.io">Github</a></li>
+          <li><a href="https://nprghu.github.io/index.html">Home</a></li>
+          <li><a href="https://github.com/nprghu/nprghu.github.io">Github</a></li>
         </b>
       </ul>
+    </details>
+    <details>
+      <summary><b>Accessibility Settings</b></summary>
+      <input id="override" type="number">
+      <select id="darkModeToggle">
+        <option value="dark">Dark Mode</option>
+        <option value="light">Light Mode</option>
+      </select>
+      <select id="toggle">
+        <option value="https://cdn.jsdelivr.net/gh/digitallytailored/classless@latest/classless.min.css" selected>Formatted Mode</option>
+        <option value="">Plain HTML Mode</option>
+      </select>
     </details>
   </section>
   <div>
@@ -65,7 +79,7 @@
         <input id="showcase" type="text" style="padding: 20px; margin: 0px;" disabled value="Your roll appears here!">
       </div>
     </section>
-    
+
     <section>
       <h2>History</h2>
       <br>
@@ -79,100 +93,165 @@
 </div>
 
         <script>
-      const importanceSelect = document.getElementById('importance');
-const diceInput = document.getElementById('dice');
-const modifierInput = document.getElementById('modifier');
-const rollButton = document.getElementById('roll');
-const showcase = document.getElementById('showcase');
-const ul = document.getElementById('list');
-const clearButton = document.getElementById('clear');
-const password = document.getElementById('password');
+const importanceSelect = document.getElementById("importance");
+const diceInput = document.getElementById("dice");
+const modifierInput = document.getElementById("modifier");
+const rollButton = document.getElementById("roll");
+const showcase = document.getElementById("showcase");
+const ul = document.getElementById("list");
+const clearButton = document.getElementById("clear");
+const password = document.getElementById("password");
+const link = document.getElementById("link");
+const linkToggle = document.getElementById("toggle");
+const override = document.getElementById("override");
 
 let importanceValue = importanceSelect.value;
 let diceValue = diceInput.value;
 let modifierValue = modifierInput.value;
 
 function coloration(number, dice) {
-  if (number <= (dice/3)) return "#f87171";
-  if (number <= (2 * dice/3)) return "#fbbf24";
+  if (number <= dice / 3) return "#f87171";
+  if (number <= (2 * dice) / 3) return "#fbbf24";
   return "#34d399";
 }
 
-rollButton.addEventListener('click', () => {
-  let rollnum = roll(parseInt(diceValue), parseInt(importanceValue), parseInt(modifierValue));
+rollButton.addEventListener("click", () => {
+  let rollnum = roll(
+    parseInt(diceValue),
+    parseInt(importanceValue),
+    parseInt(modifierValue)
+  );
+  if (override.value != "") rollnum = override.value;
   showcase.value = rollnum;
-  showcase.style = `background-color: ${coloration(rollnum, parseInt(diceValue))}20; border-color: ${coloration(rollnum, parseInt(diceValue))}; border-width: 3px; font-weight: bold; padding: 18px; margin: 0px;`
-  
-  let newLi = document.createElement('li');
-  newLi.innerHTML = `<span style="color: ${coloration(rollnum, parseInt(diceValue))}"><b>${rollnum}</b></span>d${parseInt(diceValue)} (nat ${rollnum - parseInt(modifierValue)}/${parseInt(importanceValue)})`;
-  ul.insertBefore(newLi, ul.firstChild);
-  
-  if (ul.getElementsByTagName('li').length > 6) {
-    ul.removeChild(ul.getElementsByTagName('li')[ul.getElementsByTagName('li').length - 1]);
-  }
-})
+  showcase.style = `background-color: ${coloration(
+    rollnum,
+    parseInt(diceValue)
+  )}20; border-color: ${coloration(
+    rollnum,
+    parseInt(diceValue)
+  )}; border-width: 3px; font-weight: bold; padding: 18px; margin: 0px;`;
 
-password.addEventListener('input', () => {
-  if (password.value == "apollo") { 
+  let newLi = document.createElement("li");
+  newLi.innerHTML = `<span style="color: ${coloration(
+    rollnum,
+    parseInt(diceValue)
+  )}"><b>${rollnum}</b></span>d${parseInt(diceValue)} (nat ${
+    rollnum - parseInt(modifierValue)
+  }/${parseInt(importanceValue)})`;
+  ul.insertBefore(newLi, ul.firstChild);
+
+  if (ul.getElementsByTagName("li").length > 6) {
+    ul.removeChild(
+      ul.getElementsByTagName("li")[ul.getElementsByTagName("li").length - 1]
+    );
+  }
+});
+
+override.addEventListener("input", () => {
+  if (password.value != "apollo") {
+    override.value = "";
+  }
+});
+
+password.addEventListener("input", () => {
+  if (password.value == "apollo") {
     password.style = `background-color: #34d39920; border-color: #34d399; border-width: 3px; padding: 8px`;
-  } else { password.style = "" }
-})
+  } else {
+    password.style = "";
+    override.value = "";
+  }
+});
 
 password.addEventListener("blur", () => {
   const detailsElement = document.querySelector("details");
-detailsElement.removeAttribute("open");
+  detailsElement.removeAttribute("open");
 });
 
-clearButton.addEventListener('click', () => { ul.innerHTML = ""; })
+clearButton.addEventListener("click", () => {
+  ul.innerHTML = "";
+});
 
-importanceSelect.addEventListener('change', () => {
+linkToggle.addEventListener("change", () => {
+  if (link) {
+    link.disabled = !link.disabled;
+  }
+});
+
+importanceSelect.addEventListener("change", () => {
   importanceValue = importanceSelect.value;
-  console.log('Importance updated:', importanceValue);
+  console.log("Importance updated:", importanceValue);
 });
 
-[diceInput, modifierInput].forEach(input => {
-  input.addEventListener('input', () => {
-    if(input === diceInput) diceValue = input.value;
-    if(input === modifierInput) modifierValue = input.value;
-    
+[diceInput, modifierInput].forEach((input) => {
+  input.addEventListener("input", () => {
+    if (input === diceInput) diceValue = input.value;
+    if (input === modifierInput) modifierValue = input.value;
+
     console.log(`${input.id} updated:`, input.value);
   });
 });
 
 function roll(dice, importance, modifier) {
-  if (document.getElementById("password").value == "apollo") return realroll(dice, importance, modifier);
+  if (document.getElementById("password").value == "apollo")
+    return realroll(dice, importance, modifier);
   else return realroll(dice, 1, modifier);
 }
 
 function realroll(dice, importance, modifier) {
   importance = parseInt(importance);
-  let roll = Math.floor((Math.random() * dice) + 1);
-  
-  console.log(roll)
-  
+  let roll = Math.floor(Math.random() * dice + 1);
+
+  console.log(roll);
+
   if (importance == 2) {
     roll += dice;
     roll /= 2;
-    console.log(`2: ${roll}`)
+    console.log(`2: ${roll}`);
   }
-  
+
   if (importance == 3) {
     roll += dice;
     roll /= 2;
-    console.log(`2: ${roll}`)
+    console.log(`2: ${roll}`);
   }
-  
+
   if (importance == 3) {
-    roll = dice * Math.log(roll) / (Math.log(dice) + Math.log(roll));
+    roll = (dice * Math.log(roll)) / (Math.log(dice) + Math.log(roll));
     roll *= 2;
   }
-  
+
   roll = Math.round(roll);
-  
+
   roll += modifier;
-  
+
   return roll;
 }
+
+//dark more toggle
+const darkModeToggle = document.getElementById("darkModeToggle");
+function setColorScheme(scheme) {
+  document.documentElement.setAttribute("color-scheme", scheme);
+  localStorage.setItem("color-scheme", scheme);
+}
+
+function getColorScheme() {
+  let scheme = localStorage.getItem("color-scheme");
+  if (scheme) {
+    return scheme;
+  }
+  return window.matchMedia("(prefers-color-scheme: dark)").matches
+    ? "dark"
+    : "light";
+}
+
+setColorScheme(getColorScheme());
+
+darkModeToggle.addEventListener("change", function () {
+  setColorScheme(this.value);
+});
+
+darkModeToggle.value = getColorScheme();
+
     </script>
     
   </body>
