@@ -36,7 +36,7 @@
             <mark class="badge">1.1</mark>
             <p></p>
         </div>
-        <h2>Count: 146</h2>
+        <h2>Count: <span id="ct">203</span></h2>
         <p class="links">
             <a href="#1.2">Click to see more...</a>
         </p>
@@ -54,28 +54,13 @@
         <h4>Quarter 3 - 125</h4>
         <br><br>
         <mark>1.2.4/n</mark>
-        <h4>Quarter 4 - Ongoing</h4>
-    </article>
+        <h4>Quarter 4 - <span id="q4"></span></h4>
+        <script>
+            const q4 = document.getElementById('q4');
+            const ct = document.getElementById('ct');
 
-    <article>
-        <mark>1.2.4/n</mark>
-        <br><br>
-        <h2>Logs this Quarter</h2>
-        <p class="links">
-            <a href="#today">Click to see today</a>
-        </p>
-
-        <br><br>
-
-        <mark>1.2.(~3O)/n</mark>
-        <h6 style="margin: 10px;">Tue March 25 &nbsp;&nbsp;&nbsp;&nbsp;+6</h6>
-
-        <mark>1.2.(~3P)/n</mark>
-        <h6 style="margin: 10px;">Wed March 26 &nbsp;&nbsp;&nbsp;&nbsp;+5</h6>
-
-        <mark id="today">1.2.(~3Q)/n</mark>
-        <h6 style="margin: 10px;">Thu March 27 &nbsp;&nbsp;&nbsp;&nbsp;+10</h6>
-
+            q4.innerHTML = parseInt(ct.innerHTML) - 125;
+        </script>
     </article>
 
     <footer id="FEET">
